@@ -18,3 +18,4 @@ function processLine(word: string) {
 }
 
 readFile('/usr/share/dict/words', console.error, processLine, run);
+// change to cmd line script and take dictionary path and number of unchanged digits permitted as options
