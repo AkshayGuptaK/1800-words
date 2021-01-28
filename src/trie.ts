@@ -10,7 +10,7 @@ export default class Trie {
     let curr = this.root;
     let next = null;
 
-    for (let ch of key) {
+    for (const ch of key) {
       next = curr.getLink(ch);
       if (next == null) {
         next = new Node();
@@ -26,7 +26,7 @@ export default class Trie {
     let curr = this.root;
     let next = null;
 
-    for (let ch of key) {
+    for (const ch of key) {
       next = curr.getLink(ch);
       if (next == null) {
         return false;
@@ -52,7 +52,7 @@ export default class Trie {
     return first
       .map((char) => {
         let results: string[] = [];
-        let child = node.getLink(char);
+        const child = node.getLink(char);
         if (!child) return results;
         if (child.isKey && rest.length)
           results = results.concat(
@@ -83,59 +83,3 @@ class Node {
     this.links[key] = val;
   }
 }
-
-/*
-public class MyTrieSet implements TrieSet61B {
-  private class Node {
-    public Set<Character> getChildren() { return links.keySet(); }
-  }
-
-  @Override
-  public boolean contains(String key) {
-    if (key == null || key.length() < 1)
-      return false;
-
-    char[] keyChars = key.toCharArray();
-    Node curr = root;
-    Node next = null;
-
-    for (Character ch : keyChars) {
-      next = curr.getLink(ch);
-      if (next == null) {
-        return false;
-      }
-      curr = next;
-    }
-    return curr.isKey();
-  }
-
-  private List<String> allKeysFromNode(String prefix, Node node) {
-    List<String> results = new ArrayList<String>();
-    if (node.isKey())
-      results.add(prefix);
-    for (Character ch : node.getChildren()) {
-      results.addAll(allKeysFromNode(prefix + ch, node.getLink(ch)));
-    }
-    return results;
-  }
-
-  @Override
-  public List<String> keysWithPrefix(String prefix) {
-    List<String> results = new ArrayList<String>();
-    if (prefix == null)
-      return results;
-    char[] prefixChars = prefix.toCharArray();
-    Node curr = root;
-    Node next = null;
-
-    for (Character ch : prefixChars) {
-      next = curr.getLink(ch);
-      if (next == null) {
-        return results;
-      }
-      curr = next;
-    }
-    return allKeysFromNode(prefix, curr);
-  }
-}
-*/
