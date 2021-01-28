@@ -1,3 +1,20 @@
-// use minimist for command line args
-// use prompts for io
-// default dictionary at /usr/share/dict/words
+import { readFile } from './reader';
+import { mapNumberToCharSet } from './letter-mapping';
+import { promptNumber } from './prompt';
+import Trie from './trie';
+
+const trie = new Trie();
+
+async function run() {
+  while (true) {
+    const { phoneNumber } = await promptNumber();
+    const matches = trie.matches(mapNumberToCharSet(phoneNumber));
+    console.log(matches);
+  }
+}
+
+function processLine(word: string) {
+  if (word.length > 1) trie.add(word.toUpperCase());
+}
+
+readFile('/usr/share/dict/words', console.error, processLine, run);
