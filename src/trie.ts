@@ -1,3 +1,10 @@
+/**
+ * Trie data structure matching both exact strings or a sequence of character choices
+ * @remarks A tree where each node (except root) represents a character.
+ * Children represent the possible next characters in a contained string from the current character.
+ * Can insert strings and verify if a given string is contained in O(N*L) time, where L is average string length.
+ * Can also returns all contained strings which match a sequence of possible characters.
+ */
 export default class Trie {
   private root;
 
@@ -5,6 +12,10 @@ export default class Trie {
     this.root = new Node();
   }
 
+  /**
+   * Inserts a string key into the trie
+   * @param key - non-empty string to be added
+   */
   add(key: string | null): void {
     if (key == null || key.length < 1) return;
     let curr = this.root;
@@ -21,6 +32,11 @@ export default class Trie {
     curr.isKey = true;
   }
 
+  /**
+   * Checks whether a given string is contained in the trie
+   * @param key - queried string
+   * @returns true or false
+   */
   contains(key: string): boolean {
     if (key == null || key.length < 1) return false;
     let curr = this.root;
@@ -36,6 +52,12 @@ export default class Trie {
     return curr.isKey;
   }
 
+  /**
+   * Returns all contained strings which match a sequence of possible characters
+   * @param chars - a sequence of sequences, the latter contains
+   * @returns sequence of matching strings, ordered alphabetically
+   * @example [['a', 'b'], ['e', 't']] -\> ['at', 'be']
+   */
   matches(chars: string[][]): string[] {
     return this.matchHelper('', chars, this.root);
   }
